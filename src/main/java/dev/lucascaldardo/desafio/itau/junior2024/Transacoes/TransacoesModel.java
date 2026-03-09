@@ -1,4 +1,4 @@
-package dev.lucascaldardo.desafio.itau.junior2024.model;
+package dev.lucascaldardo.desafio.itau.junior2024.Transacoes;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

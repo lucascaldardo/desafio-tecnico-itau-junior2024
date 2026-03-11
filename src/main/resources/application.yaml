@@ -1,3 +1,2 @@
-spring:
-  application:
-    name: desafio.itau.junior.2024
+estatistica:
+  segundos: 60

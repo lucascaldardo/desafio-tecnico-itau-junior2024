@@ -1,9 +1,9 @@
-package dev.lucascaldardo.desafio.itau.junior2024.Transacoes;
+package dev.lucascaldardo.desafio.itau.junior2024.Estatistica;
 
 import lombok.Getter;
 
 @Getter
-public class EstatisticaDTO {
+public class EstatisticasDTO {
 
     private final long count;
     private final double avg;
@@ -11,7 +11,7 @@ public class EstatisticaDTO {
     private final double min;
     private final double sum;
 
-    public EstatisticaDTO(long count, double avg, double max, double min, double sum) {
+    public EstatisticasDTO(long count, double avg, double max, double min, double sum) {
         this.count = count;
         this.avg = avg;
         this.max = max;

@@ -1,8 +1,8 @@
 package dev.lucascaldardo.desafio.itau.junior2024.Transacoes;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,15 +14,15 @@ import java.time.OffsetDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TransacoesRequest {
+public class TransacaoRequest {
 
     @NotNull
-    @Min(0)
+    @PositiveOrZero
 
     private BigDecimal valor;
 
     @NotNull
-    @PastOrPresent
+    @PastOrPresent(message = "Data e hora são obrigatórios")
     private OffsetDateTime dataHora;
 
 

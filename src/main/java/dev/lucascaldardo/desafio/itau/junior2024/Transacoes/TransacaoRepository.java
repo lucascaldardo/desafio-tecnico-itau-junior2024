@@ -32,12 +32,14 @@ public class TransacaoRepository{
                         t.getDataHora().isAfter(horaInicial) || t.getDataHora().isEqual(horaInicial)
                 ).mapToDouble(t -> t.getValor().doubleValue())
                 .summaryStatistics();
+
         return new EstatisticasDTO(
                 resumo.getCount(),
-                resumo.getAverage(),
-                resumo.getMax(),
-                resumo.getMin(),
-                resumo.getSum());
+                resumo.getCount() > 0 ? resumo.getAverage() : 0.0,
+                resumo.getCount() > 0 ? resumo.getMax() : 0.0,
+                resumo.getCount() > 0 ? resumo.getMin() : 0.0,
+                resumo.getSum()
+        );
         }
 
 

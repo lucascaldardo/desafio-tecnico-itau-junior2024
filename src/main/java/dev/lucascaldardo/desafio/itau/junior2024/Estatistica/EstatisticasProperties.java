@@ -1,13 +1,14 @@
 package dev.lucascaldardo.desafio.itau.junior2024.Estatistica;
 
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
-@Component
+@Validated
 @ConfigurationProperties(prefix = "estatistica")
-public record EstatisticasProperties (Integer segundos) {
+public record EstatisticasProperties (@NotNull @Positive Integer segundos) {
 
 
 

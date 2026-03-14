@@ -1,5 +1,6 @@
 package dev.lucascaldardo.desafio.itau.junior2024.Transacoes;
 
+import dev.lucascaldardo.desafio.itau.junior2024.Docs.TransacaoControllerDoc;
 import dev.lucascaldardo.desafio.itau.junior2024.Estatistica.EstatisticasDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/transacao")
-@Tag(name="Transações",
-description="Endpoints responsáveis por criar e adicionar transações em uma lista e também limpa-la" )
-public class TransacaoController {
+public class TransacaoController implements TransacaoControllerDoc {
 
     private TransacaoService transacaoService;
     private TransacaoRepository transacaoRepository;
@@ -27,10 +26,6 @@ public class TransacaoController {
     }
 
     @PostMapping
-    @Operation(summary = "Cria novas transações", description = "Recebe uma transação valida e adiciona em uma lista")
-    @ApiResponse(responseCode = "201", description = "Transação enviada com sucesso")
-    @ApiResponse(responseCode = "422", description = "Erro de validação")
-    @ApiResponse(responseCode = "400", description = "Erro inesperado")
     public ResponseEntity adicionar(@Valid @RequestBody TransacaoRequest transacaoRequest){
 
 

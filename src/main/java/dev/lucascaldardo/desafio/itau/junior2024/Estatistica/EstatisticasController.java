@@ -1,5 +1,6 @@
 package dev.lucascaldardo.desafio.itau.junior2024.Estatistica;
 
+import dev.lucascaldardo.desafio.itau.junior2024.Docs.EstatisticaControllerDoc;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import dev.lucascaldardo.desafio.itau.junior2024.Transacoes.TransacaoRepository;
@@ -13,7 +14,7 @@ import java.time.OffsetDateTime;
 @Slf4j
 @RestController
 @RequestMapping("/estatistica")
-public class EstatisticasController {
+public class EstatisticasController implements EstatisticaControllerDoc {
 
 
 
@@ -28,7 +29,7 @@ public class EstatisticasController {
     @GetMapping
     public ResponseEntity estatistica(){
 
-        // Log requisicao criado via lombok
+        //Log requisicao criado via lombok
         log.info("Calculando estatisticas de transações nos ultimos " + estatisticasProperties.segundos() + " segundos: ");
 
 

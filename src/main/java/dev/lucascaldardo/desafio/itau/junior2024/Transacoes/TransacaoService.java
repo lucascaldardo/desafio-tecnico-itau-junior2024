@@ -1,31 +1,35 @@
 package dev.lucascaldardo.desafio.itau.junior2024.Transacoes;
 
+import dev.lucascaldardo.desafio.itau.junior2024.Estatistica.EstatisticasProperties;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-
+@Slf4j
 @Service
 public class TransacaoService {
 
     private final TransacaoRepository transacaoRepository;
+    private final EstatisticasProperties estatisticasProperties;
 
-    public TransacaoService(TransacaoRepository transacaoRepository) {
+    public TransacaoService(TransacaoRepository transacaoRepository, EstatisticasProperties estatisticasProperties) {
         this.transacaoRepository = transacaoRepository;
+        this.estatisticasProperties = estatisticasProperties;
     }
 
-    public void validarTransacao(TransacaoRequest transacaoRequest) {
+    public void adicionarTransacao(TransacaoRequest transacaoRequest) {
+        transacaoRepository.salvarDados(transacaoRequest);
+    }
 
-        if (transacaoRequest.getValor().compareTo(BigDecimal.ZERO) < 0 ) {
-            throw new IllegalArgumentException ("Erro: Transação inválida, transações devem ter valor maior ou igual a zero.");
-        }
+    //Limpa a mémoria
+    @Scheduled(fixedDelay = 1000)
+    public void apagarTransacoesAntigas() {
+        transacaoRepository.limparTransacoesAntigas(estatisticasProperties.segundos());
+    }
 
-        if (transacaoRequest.getDataHora().isAfter(OffsetDateTime.now())) {
-            throw new IllegalArgumentException ("Erro: Transação inválida, datas devem ser em uma data passada ou presente.");
-        }
-
-
+    public void limparTransacoes() {
+        transacaoRepository.limparDados();
     }
 
 }

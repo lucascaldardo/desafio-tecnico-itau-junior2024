@@ -34,8 +34,7 @@ public class TransacaoController {
     public ResponseEntity adicionar(@Valid @RequestBody TransacaoRequest transacaoRequest){
 
 
-        transacaoService.validarTransacao(transacaoRequest);
-        transacaoRepository.salvarDados(transacaoRequest);
+        transacaoService.adicionarTransacao(transacaoRequest);
 
         //Log de sucesso
         log.info("Transação de: {}R$ feita com sucesso. ", transacaoRequest.getValor());

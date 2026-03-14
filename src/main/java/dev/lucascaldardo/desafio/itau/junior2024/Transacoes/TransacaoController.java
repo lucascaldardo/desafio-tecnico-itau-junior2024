@@ -19,7 +19,7 @@ public class TransacaoController {
 
     private TransacaoService transacaoService;
     private TransacaoRepository transacaoRepository;
-    private TransacaoRequest transacaoRequest;
+
 
     public TransacaoController(TransacaoService transacaoService, TransacaoRepository transacaoRepository) {
         this.transacaoService = transacaoService;
@@ -33,31 +33,23 @@ public class TransacaoController {
     @ApiResponse(responseCode = "400", description = "Erro inesperado")
     public ResponseEntity adicionar(@Valid @RequestBody TransacaoRequest transacaoRequest){
 
-        try{
-            transacaoService.validarTransacao(transacaoRequest);
-            transacaoRepository.salvarDados(transacaoRequest);
 
-            //Log de sucesso
-            log.info("Transação de: {}R$ feita com sucesso. ", transacaoRequest.getValor());
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+        transacaoService.validarTransacao(transacaoRequest);
+        transacaoRepository.salvarDados(transacaoRequest);
 
-        }catch(IllegalArgumentException exception){
-
-            //Logo
-            log.warn("Falha de validação ao processar transação. Motivo: {}", exception.getMessage());
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
-
-        }catch(Exception anotherException){
-            log.error("Erro inesperado ao tentar salvar a transação.");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        //Log de sucesso
+        log.info("Transação de: {}R$ feita com sucesso. ", transacaoRequest.getValor());
+        return ResponseEntity.status(HttpStatus.CREATED).build();
         }
-    }
 
-    @DeleteMapping
-    public ResponseEntity deletar(){
-        transacaoRepository.limparDados();
-        log.info("Base de transações limpa com sucesso");
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
+        @DeleteMapping
+        public ResponseEntity deletar(){
+            transacaoRepository.limparDados();
+            log.info("Base de transações limpa com sucesso");
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
 }
+
+
+
+

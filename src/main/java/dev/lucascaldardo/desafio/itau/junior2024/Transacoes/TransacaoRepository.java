@@ -42,8 +42,15 @@ public class TransacaoRepository{
         );
         }
 
+       //Metodo para limpar os dados antigos
 
+    public void limparTransacoesAntigas(Integer segundos) {
+        var tempoLimite = OffsetDateTime.now().minusSeconds(segundos);
 
-
+        // Enquanto a fila não estiver vazia e o item mais antigo  for anterior ao tempo limite remove ele
+        while (!pilhatransacoes.isEmpty() && pilhatransacoes.peek().getDataHora().isBefore(tempoLimite)) {
+            pilhatransacoes.poll();
+        }
     }
+}
 

@@ -16,13 +16,13 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 public class TransacaoRequest {
 
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "O valor é obrigatório")
+    @PositiveOrZero(message = "O valor deve ser positivo e maior que 0")
 
     private BigDecimal valor;
 
-    @NotNull
-    @PastOrPresent(message = "Data e hora são obrigatórios")
+    @NotNull(message = "Data e hora são obrigatórios")
+    @PastOrPresent(message = "A data deve ser no passo ou no presente, não podendo ser em uma data futura")
     private OffsetDateTime dataHora;
 
 
